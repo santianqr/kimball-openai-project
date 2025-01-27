@@ -7,3 +7,6 @@ class Config:
 
     def get_database_config(self):
         return self.config.get('database', {})
+    
+    def get_openai_config(self):
+        return self.config.get('openai', {})
