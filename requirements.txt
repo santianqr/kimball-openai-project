@@ -1,6 +1,8 @@
 pandas==2.1.1
 numpy==1.26.0
+psycopg2-binary==2.9.9
+pyyaml==6.0.1
 #openpyxl==3.1.2  # Para trabajar con archivos Excel (XLSX)
-python-dotenv==1.0.0  # Para manejar variables de entorno
+#python-dotenv==1.0.0  # Para manejar variables de entorno
 #sqlalchemy==2.0.21  # Para la conexión a bases de datos como PostgreSQL
-psycopg2-binary==2.9.9  # Driver PostgreSQL para Python
+

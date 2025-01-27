@@ -1,0 +1,9 @@
+database:
+  host: "demo-postgres.cr602kscub2u.us-east-1.rds.amazonaws.com"
+  port: 5432
+  name: "postgres"
+  user: "postgres"
+  password: "Laraybella05"
+
+openai:
+  key: "hola_soy_una_llave_secreta"
