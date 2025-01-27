@@ -1,3 +1,12 @@
-import pandas as pd
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
-print(pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]}))
+DB_NAME = 'postgres'
+DB_USER = 'postgres'
+
+try:
+    conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST, port=DB_PORT)
+    print("Connected to the database")
+except Exception as e:
+    print(e)
+    print("Database not connected")
