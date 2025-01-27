@@ -1,5 +1,5 @@
 import psycopg2
-import config
+import config.config as config
 from psycopg2.extras import RealDictCursor
 
 conn = config.Config()
