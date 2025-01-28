@@ -1,12 +1,14 @@
 import yaml
 
-class Creds:
-    def __init__(self, config_file='config.yaml'):
+class creds:
+    @classmethod
+    def db_creds(cls, config_file='config.yaml'):
         with open(config_file, 'r') as file:
-            self.config = yaml.safe_load(file)
-
-    def db_creds(self):
-        return self.config.get('database', {})
+            config = yaml.safe_load(file)
+        return config.get('database', {})
     
-    def openai_creds(self):
-        return self.config.get('openai', {})
+    @classmethod
+    def openai_config(cls, config_file='config.yaml'):
+        with open(config_file, 'r') as file:
+            config = yaml.safe_load(file)
+        return config.get('openai', {})

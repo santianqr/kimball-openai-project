@@ -1,1 +1,1 @@
-from .creds import Creds
+from .creds import creds
