@@ -1,4 +1,4 @@
-import postgre.db as tct
+import src.utils.db as tct
 import pandas as pd
 
 tct = tct.db()

@@ -2,11 +2,11 @@ import pandas as pd
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from sqlalchemy import create_engine
-from creds import creds
+from creds import Creds
 
 class db:
     def __init__(self):
-        self.conn_config = creds.Creds().get_database_creds()
+        self.conn_config = Creds().db_creds()
 
     def _connect(self):
         try:
