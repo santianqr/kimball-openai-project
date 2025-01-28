@@ -24,9 +24,7 @@ class processor:
 
         df.drop_duplicates(inplace=True)
 
-        df = df[
-            ~df["Customer ID"].astype(str).str.contains("TEST", case=False, na=False)
-        ]
+        df = df[~df["Customer ID"].astype(str).str.contains("TEST", case=False, na=False)]
         df = df[~df["StockCode"].astype(str).str.contains("TEST", case=False, na=False)]
 
         df["Price"].fillna(0, inplace=True)
