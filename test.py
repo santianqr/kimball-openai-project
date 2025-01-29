@@ -11,7 +11,7 @@ df = db.execute_query("SELECT * FROM invoices LIMIT 100")
 print("Data from database")
 print(df)
 
-dim_product, dim_customer, dim_date, fact_sales  = model.generate_model(df)
+dim_product, dim_customer, dim_date, dim_country, fact_sales  = model.generate_model(df)
 print(dim_product)
 
 #db.upsert_table(df, 'invoices')
