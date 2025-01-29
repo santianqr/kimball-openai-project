@@ -25,26 +25,33 @@ class db:
 
     @classmethod
     def execute_query(cls, query):
+        """
+        Ejecuta una consulta SQL.
+        - Si es una consulta SELECT o comienza con "WITH", devuelve un DataFrame con los resultados.
+        - Si es otra consulta (INSERT, UPDATE, DELETE), solo la ejecuta y confirma cambios.
+        """
         conn, cursor = cls._connect()
         if not conn or not cursor:
             return None
 
         try:
             cursor.execute(query)
-            if query.strip().upper().startswith("SELECT"):
+            
+            # Manejo especial para consultas con CTE (WITH)
+            if query.strip().upper().startswith(("SELECT", "WITH")):
                 result = cursor.fetchall()
-                return pd.DataFrame(result)
+                return pd.DataFrame(result)  # Convertir a DataFrame
             else:
                 conn.commit()
-                print("Non-SELECT query executed successfully")
+                print("✅ Query ejecutada con éxito")
                 return None
         except Exception as e:
-            print(f"Error executing query: {e}")
+            print(f"❌ Error ejecutando la consulta: {e}")
             return None
         finally:
             cursor.close()
             conn.close()
-            print("Database connection closed")
+            print("🔒 Conexión cerrada")
 
     @classmethod
     def execute_sql_file(cls, file_path):

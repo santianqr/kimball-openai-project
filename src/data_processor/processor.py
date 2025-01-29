@@ -31,7 +31,8 @@ class processor:
         df["Country"].fillna("No country", inplace=True)
         df["Description"].fillna("No description", inplace=True)
         df["Customer ID"].fillna(999999999, inplace=True)
-
+        
+        df = df[~df["StockCode"].astype(str).str.match(r"^[^a-zA-Z0-9]+$", na=False)]
         df = df[df["Price"] >= 0]
 
         df["Invoice"] = df["Invoice"].astype(str)
