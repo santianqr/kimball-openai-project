@@ -47,6 +47,20 @@ class db:
             print("Database connection closed")
 
     @classmethod
+    def execute_sql_file(cls, file_path):
+        try:
+            with open(file_path, 'r', encoding='utf-8') as file:
+                query = file.read()
+
+            print(f"📄 Ejecutando consulta desde {file_path}...")
+            return cls.execute_query(query)
+
+        except Exception as e:
+            print(f"❌ Error leyendo o ejecutando el archivo SQL {file_path}: {e}")
+            return None
+
+
+    @classmethod
     def upsert_table(cls, df, table_name):
         engine = None
         try:
