@@ -1,4 +1,4 @@
-from src import db, processor, model, loader
+from src import db, processor, model, loader, generator
 import pandas as pd
 
 file_path = 'data/raw/Invoices_Year_2009-2010.csv'
@@ -10,12 +10,14 @@ file_path = 'data/raw/Invoices_Year_2009-2010.csv'
 #print("Data from database")
 #print(df)
 
-
+print(generator.generate_table('Obtén el total de ventas por país en el año 2010'))
 #dim_product, dim_customer, dim_date, dim_country, fact_sales  = model.generate_model(df)
 #print(dim_product)
 
 #loader.upload_model(dim_product, dim_customer, dim_date, dim_country, fact_sales)
-#print(db.execute_query("SELECT * FROM invoices LIMIT 100"))
 
-df = db.execute_sql_file('src/utils/queries/retention_client.sql')
-print(df)
+
+
+#df = db.execute_sql_file('src/utils/queries/retention_client.sql')
+#print(df)
+

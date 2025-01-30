@@ -6,4 +6,4 @@ database:
   password: "Laraybella05"
 
 openai:
-  key: "hola_soy_una_llave_secreta"
+  key: "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"
