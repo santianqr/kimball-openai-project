@@ -87,6 +87,7 @@ BetssonProject/
     │   └── test_processor.py
     └── database/
         └── test_db.py
+```
 
 ### Notebooks
 - **[notebooks/exploration.ipynb](notebooks/exploration.ipynb)**: Contains exploratory data analysis and data cleaning steps.
