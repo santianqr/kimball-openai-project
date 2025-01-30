@@ -34,13 +34,6 @@ This project is a test for a data engineer position at Betsson. The goal is to p
 ### Directory Structure
 
 BetssonProject/
-├── .gitattributes
-├── .gitignore
-├── .pytest_cache/
-│   ├── .gitignore
-│   ├── CACHEDIR.TAG
-│   └── v/
-│       └── cache/
 ├── config.yaml
 ├── creds/
 │   ├── __init__.py
@@ -83,3 +76,52 @@ BetssonProject/
     │   └── test_processor.py
     └── database/
         └── test_db.py
+
+
+### Notebooks
+- **[notebooks/exploration.ipynb](notebooks/exploration.ipynb)**: Contains exploratory data analysis and data cleaning steps.
+
+### Scripts
+- **[main.py](main.py)**: Main script to run the project.
+- **[run.py](run.py)**: Script to execute the project.
+
+### Configuration
+- **[config.yaml](config.yaml)**: Configuration file for the project.
+
+### Requirements
+- **[requirements.txt](requirements.txt)**: List of dependencies required for the project.
+
+### Virtual Environment
+- **venv/**: Virtual environment directory.
+
+### Tests
+- **[tests/data_processor/test_processor.py](tests/data_processor/test_processor.py)**: Contains tests for the data processing functions.
+- **[tests/database/test_db.py](tests/database/test_db.py)**: Contains tests for the database functions.
+
+### Data Processing
+- **[src/data_processor](src/data_processor)**: Contains the data processing logic.
+  - **[src/data_processor/process_data.py](src/data_processor/process_data.py)**: Main data processing functions.
+
+### Data Loading
+- **[src/data_loader](src/data_loader)**: Contains the data loading logic.
+  - **[src/data_loader/load_data.py](src/data_loader/load_data.py)**: Functions to load data into the database.
+
+### Data Modeling
+- **[src/data_modeling](src/data_modeling)**: Contains the data modeling logic.
+  - **[src/data_modeling/generate_model.py](src/data_modeling/generate_model.py)**: Functions to generate data models.
+
+### NLP Generation
+- **[src/nlp_generator](src/nlp_generator)**: Contains the NLP generation logic.
+  - **[src/nlp_generator/generate_table.py](src/nlp_generator/generate_table.py)**: Functions to generate tables using NLP.
+
+### Utilities
+- **[src/utils](src/utils)**: Contains utility functions and SQL queries.
+  - **[src/utils/queries](src/utils/queries)**: Contains SQL query files.
+    - **[src/utils/queries/base_query.sql](src/utils/queries/base_query.sql)**: Base SQL query.
+    - **[src/utils/queries/classification_products.sql](src/utils/queries/classification_products.sql)**: SQL query for product classification.
+
+### Running the Project
+To run the project, execute the `run.py` script:
+
+```sh
+python run.py
