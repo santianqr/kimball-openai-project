@@ -6,3 +6,5 @@ chardet==5.2.0
 sqlalchemy==2.0.21 
 langchain-openai
 pytest
+black==23.3.0
+flake8==6.0.0
