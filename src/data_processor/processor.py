@@ -1,6 +1,5 @@
 import pandas as pd
 import chardet
-from typing import Any
 
 class DataProcessor:
     """
@@ -41,7 +40,7 @@ class DataProcessor:
         """
         try:
             encoding_to_use = DataProcessor._detect_encoding(file_path)
-            return pd.read_csv(file_path, encoding=encoding_to_use)
+            return pd.read_csv(file_path, encoding=encoding_to_use, dtype={"Customer ID": str}, low_memory=False)
         except Exception as e:
             raise ValueError(f"❌ Error loading data from file: {e}")
 

@@ -1,24 +1,23 @@
-from src import db#, processor, model, loader, generator
-#import pandas as pd
-#from creds import creds
+from src import db, processor, model, loader, generator
+import pandas as pd
 
+# Define the file path for the raw data
 file_path = 'data/raw/Invoices_Year_2009-2010.csv'
 
-##df = processor.process_data(file_path)
-#print(df.head(5))
+# Clean and process the raw data
+df = processor.process_data(file_path)
 
-df = db.execute_query("SELECT * FROM invoices limit 5")
-#print("Data from database")
-print(df)
+# Create the table invoices in PostgreSQL
+db.upsert_table(df, 'invoices')
 
-#print(generator.generate_table('Obtén el total de ventas por país en el año 2010'))
-#dim_product, dim_customer, dim_date, dim_country, fact_sales  = model.generate_model(df)
-#print(dim_product)
+# Execute a base SQL query and get the data to provide to the model
+df_raw = db.execute_sql_file('src/utils/queries/base_query.sql')
 
-#loader.upload_model(dim_product, dim_customer, dim_date, dim_country, fact_sales)
+# Generate the data model from the data (Kimball model)
+dim_product, dim_customer, dim_date, dim_country, fact_sales = model.generate_model(df_raw)
 
+# Upload the generated data model to PostgreSQL
+loader.upload_model(dim_product, dim_customer, dim_date, dim_country, fact_sales)
 
-
-#df = db.execute_sql_file('src/utils/queries/retention_client.sql')
-#print(df)
-
+# BETA MODE: Generate the table from input of the user
+generator.generate_table("top 10 productos mas vendidos en diciembre 2009")
