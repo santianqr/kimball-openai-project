@@ -4,11 +4,12 @@ from psycopg2.extras import RealDictCursor
 from sqlalchemy import create_engine
 from creds import creds
 
+
 class DatabaseManager:
     """
     A utility class to manage database connections and execute queries in PostgreSQL.
     """
-    
+
     _conn_config = creds.get_database_config()
 
     @classmethod
@@ -25,7 +26,7 @@ class DatabaseManager:
                 user=cls._conn_config["user"],
                 password=cls._conn_config["password"],
                 host=cls._conn_config["host"],
-                port=cls._conn_config["port"]
+                port=cls._conn_config["port"],
             )
             cursor = conn.cursor(cursor_factory=RealDictCursor)
             return conn, cursor
@@ -37,7 +38,7 @@ class DatabaseManager:
     def execute_query(cls, query: str) -> pd.DataFrame | None:
         """
         Executes a SQL query.
-        
+
         - If the query is a SELECT or starts with "WITH", returns a DataFrame.
         - Otherwise, commits changes to the database.
 
@@ -53,7 +54,7 @@ class DatabaseManager:
 
         try:
             cursor.execute(query)
-            
+
             if query.strip().upper().startswith(("SELECT", "WITH")):
                 result = cursor.fetchall()
                 return pd.DataFrame(result)
@@ -81,7 +82,7 @@ class DatabaseManager:
             pd.DataFrame | None: Query results as a DataFrame if applicable.
         """
         try:
-            with open(file_path, 'r', encoding='utf-8') as file:
+            with open(file_path, "r", encoding="utf-8") as file:
                 query = file.read()
 
             print(f"📄 Executing SQL file: {file_path}...")
@@ -105,7 +106,9 @@ class DatabaseManager:
                 f'postgresql://{cls._conn_config["user"]}:{cls._conn_config["password"]}'
                 f'@{cls._conn_config["host"]}:{cls._conn_config["port"]}/{cls._conn_config["name"]}'
             )
-            df.to_sql(table_name, con=engine, if_exists='append', index=False, chunksize=1000)
+            df.to_sql(
+                table_name, con=engine, if_exists="append", index=False, chunksize=1000
+            )
             print(f"✅ Data inserted into table '{table_name}' successfully")
         except Exception as e:
             print(f"❌ Error inserting data into table '{table_name}': {e}")

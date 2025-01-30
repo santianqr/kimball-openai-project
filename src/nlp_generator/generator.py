@@ -4,32 +4,27 @@ from creds import creds
 from src.utils import db
 import re
 
+
 class SQLGenerator:
     """
     A utility class to generate and execute SQL queries using an AI language model.
     """
-    
+
     _table_schema = {
-        "dim_country": {
-            "country_id": "bigint",
-            "country": "text"
-        },
-        "dim_customer": {
-            "customer_id": "bigint",
-            "country": "text"
-        },
+        "dim_country": {"country_id": "bigint", "country": "text"},
+        "dim_customer": {"customer_id": "bigint", "country": "text"},
         "dim_date": {
             "date_id": "bigint",
             "invoice_date": "timestamp without time zone",
             "year": "integer",
             "month": "integer",
             "day": "integer",
-            "weekday": "integer"
+            "weekday": "integer",
         },
         "dim_product": {
             "product_id": "bigint",
             "stock_code": "text",
-            "description": "text"
+            "description": "text",
         },
         "fact_sales": {
             "invoice": "text",
@@ -39,8 +34,8 @@ class SQLGenerator:
             "country_id": "bigint",
             "quantity": "bigint",
             "unit_price": "double precision",
-            "total_price": "double precision"
-        }
+            "total_price": "double precision",
+        },
     }
 
     _conn_config = creds.get_openai_config()
@@ -51,12 +46,13 @@ class SQLGenerator:
     def _generate_template(cls) -> str:
         """
         Generates the SQL prompt template for the AI model.
-        
+
         Returns:
             str: SQL query generation prompt template.
         """
         return """
-        You are an expert in SQL and must generate queries for a PostgreSQL database based on the user's request.
+        You are an expert in SQL and must generate queries for a PostgreSQL
+        database based on the user's request.
 
         ## Database schema with data types:
         {table_schema}
@@ -80,10 +76,10 @@ class SQLGenerator:
     def _clean_sql_query(cls, response_content: str) -> str:
         """
         Cleans the generated SQL query by removing unnecessary code block delimiters.
-        
+
         Args:
             response_content (str): AI model response containing the SQL query.
-        
+
         Returns:
             str: Cleaned SQL query.
         """
@@ -96,23 +92,22 @@ class SQLGenerator:
 
         Args:
             user_request (str): User's request in natural language.
-        
+
         Returns:
             pd.DataFrame | str: Query results as a DataFrame or an error message.
         """
         try:
             prompt_template = PromptTemplate(
                 input_variables=["table_schema", "user_request"],
-                template=cls._generate_template()
+                template=cls._generate_template(),
             )
             prompt_text = prompt_template.format(
-                table_schema=cls._table_schema,
-                user_request=user_request
+                table_schema=cls._table_schema, user_request=user_request
             )
 
             response = cls._llm.invoke(prompt_text)
             cleaned_query = cls._clean_sql_query(response.content)
-            
+
             return db.execute_query(cleaned_query)
         except Exception as e:
             return f"❌ Error processing request: {str(e)}"

@@ -1,18 +1,19 @@
 from src.utils import db
 import pandas as pd
 
+
 class DataLoader:
     """
     A utility class to upload data tables to PostgreSQL.
     """
-    
+
     @staticmethod
     def upload_model(
         dim_product: pd.DataFrame,
         dim_customer: pd.DataFrame,
         dim_date: pd.DataFrame,
         dim_country: pd.DataFrame,
-        fact_sales: pd.DataFrame
+        fact_sales: pd.DataFrame,
     ) -> str:
         """
         Uploads multiple data tables to PostgreSQL.
@@ -34,6 +35,8 @@ class DataLoader:
             db.upsert_table(dim_country, "dim_country")
             db.upsert_table(fact_sales, "fact_sales")
 
-            return "✅ Data upload successful: All tables have been loaded into PostgreSQL."
+            return (
+                "✅ Data upload successful: All tables have been loaded into PostgreSQL."
+            )
         except Exception as e:
             return f"❌ Error uploading data to PostgreSQL: {str(e)}"
