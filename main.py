@@ -1,16 +1,15 @@
-#from src import db, processor, model, loader, generator
+from src import db#, processor, model, loader, generator
 #import pandas as pd
-from creds import creds
-from src import db
+#from creds import creds
 
 file_path = 'data/raw/Invoices_Year_2009-2010.csv'
 
-#df = processor.process_data(file_path)
+##df = processor.process_data(file_path)
 #print(df.head(5))
 
-#df = db.execute_query("SELECT * FROM dim_product where stock_code ilike '%?%'")
+df = db.execute_query("SELECT * FROM invoices limit 5")
 #print("Data from database")
-#print(df)
+print(df)
 
 #print(generator.generate_table('Obtén el total de ventas por país en el año 2010'))
 #dim_product, dim_customer, dim_date, dim_country, fact_sales  = model.generate_model(df)
@@ -23,4 +22,3 @@ file_path = 'data/raw/Invoices_Year_2009-2010.csv'
 #df = db.execute_sql_file('src/utils/queries/retention_client.sql')
 #print(df)
 
-#rint(creds.get_openai_config())

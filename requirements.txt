@@ -5,3 +5,4 @@ pyyaml==6.0.1
 chardet==5.2.0
 sqlalchemy==2.0.21 
 langchain-openai
+pytest
