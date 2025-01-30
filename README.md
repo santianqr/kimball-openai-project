@@ -33,9 +33,60 @@ This project is a test for a data engineer position at Betsson. The goal is to p
 
 ### Directory Structure
 
-BetssonProject/ ├── .gitattributes ├── .gitignore ├── .pytest_cache/ │ ├── .gitignore │ ├── CACHEDIR.TAG │ └── v/ │ └── cache/ ├── config.yaml ├── creds/ │ ├── init.py │ ├── pycache/ │ └── creds.py ├── data/ │ ├── other/ │ └── raw/ │ └── ... ├── main.py ├── notebooks/ │ └── exploration.ipynb ├── README.md ├── requirements.txt ├── run.py ├── src/ │ ├── init.py │ ├── pycache/ │ ├── data_loader/ │ │ ├── init.py │ │ └── load_data.py │ ├── data_modeling/ │ │ └── generate_model.py │ ├── data_processor/ │ │ ├── init.py │ │ └── process_data.py │ ├── nlp_generator/ │ │ └── generate_table.py │ └── utils/ │ ├── init.py │ └── queries/ │ ├── base_query.sql │ └── classification_products.sql ├── tests/ │ ├── init.py │ ├── pycache/ │ ├── data_modeling/ │ │ └── test_modeling.py │ ├── data_processor/ │ │ └── test_processor.py │ └── database/ │ └── test_db.py └── venv/ ├── Include/ ├── Lib/ ├── pyvenv.cfg ├── Scripts/ └── share/
+# Project Structure
 
-
+```plaintext
+BetssonProject/
+├── .gitattributes
+├── .gitignore
+├── .pytest_cache/
+│   ├── .gitignore
+│   ├── CACHEDIR.TAG
+│   └── README.md
+│   └── v/
+│       └── cache/
+├── config.yaml
+├── creds/
+│   ├── __init__.py
+│   ├── __pycache__/
+│   └── creds.py
+├── data/
+│   ├── other/
+│   └── raw/
+│       └── ...
+├── main.py
+├── notebooks/
+│   └── exploration.ipynb
+├── README.md
+├── requirements.txt
+├── run.py
+├── src/
+│   ├── __init__.py
+│   ├── __pycache__/
+│   ├── data_loader/
+│   │   ├── __init__.py
+│   │   └── load_data.py
+│   ├── data_modeling/
+│   │   └── generate_model.py
+│   ├── data_processor/
+│   │   ├── __init__.py
+│   │   └── process_data.py
+│   ├── nlp_generator/
+│   │   └── generate_table.py
+│   └── utils/
+│       ├── __init__.py
+│       └── queries/
+│           ├── base_query.sql
+│           └── classification_products.sql
+└── tests/
+    ├── __init__.py
+    ├── __pycache__/
+    ├── data_modeling/
+    │   └── test_modeling.py
+    ├── data_processor/
+    │   └── test_processor.py
+    └── database/
+        └── test_db.py
 
 ### Notebooks
 - **[notebooks/exploration.ipynb](notebooks/exploration.ipynb)**: Contains exploratory data analysis and data cleaning steps.
