@@ -1,1 +1,1 @@
-from .creds import creds
+from .creds import ConfigLoader as creds

@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from creds import creds
 
 class db:
-    conn_config = creds.db_creds()
+    conn_config = creds.get_database_config()
 
     @classmethod
     def _connect(cls):

@@ -41,7 +41,7 @@ class generator:
     }
 
     # Clave de API de OpenAI como variable de clase
-    conn_config = creds.openai_config()
+    conn_config = creds.get_openai_config()
     openai_key = conn_config["key"]
 
     # Inicialización del modelo de lenguaje como variable de clase
