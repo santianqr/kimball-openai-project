@@ -1,14 +1,17 @@
+-- This query performs a cohort analysis by identifying the first purchase month of each customer
+-- and tracking their purchasing behavior over time to measure retention.
+
 WITH first_purchase AS (
-    -- Determinamos el primer mes en que cada cliente compró
+    -- Determine the first month each customer made a purchase
     SELECT 
         f.customer_id, 
         MIN(DATE_TRUNC('month', d.invoice_date)) AS first_purchase_month
     FROM fact_sales f
-    JOIN dim_date d ON f.date_id = d.date_id  -- Relacionamos con dim_date para obtener la fecha real
+    JOIN dim_date d ON f.date_id = d.date_id  -- Join with dim_date to get actual invoice date
     GROUP BY f.customer_id
 ),
 cohort_analysis AS (
-    -- Contamos cuántos clientes compraron en cada mes después de su primera compra
+    -- Count how many customers made purchases in each subsequent month after their first purchase
     SELECT 
         f.customer_id,
         fp.first_purchase_month,
@@ -16,7 +19,7 @@ cohort_analysis AS (
         EXTRACT(YEAR FROM DATE_TRUNC('month', d.invoice_date)) * 12 + EXTRACT(MONTH FROM DATE_TRUNC('month', d.invoice_date)) -
         (EXTRACT(YEAR FROM fp.first_purchase_month) * 12 + EXTRACT(MONTH FROM fp.first_purchase_month)) AS cohort_month
     FROM fact_sales f
-    JOIN dim_date d ON f.date_id = d.date_id  -- Relacionamos para traer la fecha
+    JOIN dim_date d ON f.date_id = d.date_id  -- Join to bring the invoice date
     JOIN first_purchase fp ON f.customer_id = fp.customer_id
 )
 SELECT 
