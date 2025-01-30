@@ -1,6 +1,8 @@
 #from src import db, processor, model, loader, generator
 #import pandas as pd
 from creds import creds
+from src import db
+
 file_path = 'data/raw/Invoices_Year_2009-2010.csv'
 
 #df = processor.process_data(file_path)
@@ -21,4 +23,4 @@ file_path = 'data/raw/Invoices_Year_2009-2010.csv'
 #df = db.execute_sql_file('src/utils/queries/retention_client.sql')
 #print(df)
 
-print(creds.get_openai_config())
+#rint(creds.get_openai_config())
