@@ -1,1 +1,1 @@
-from .processor import processor
+from .processor import DataProcessor as processor

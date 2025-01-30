@@ -1,30 +1,39 @@
 from src.utils import db
+import pandas as pd
 
-class loader:
-
+class DataLoader:
+    """
+    A utility class to upload data tables to PostgreSQL.
+    """
+    
     @staticmethod
-    def upload_model(dim_product, dim_customer, dim_date, dim_country, fact_sales):
+    def upload_model(
+        dim_product: pd.DataFrame,
+        dim_customer: pd.DataFrame,
+        dim_date: pd.DataFrame,
+        dim_country: pd.DataFrame,
+        fact_sales: pd.DataFrame
+    ) -> str:
         """
-        Carga los cinco DataFrames en la base de datos PostgreSQL.
+        Uploads multiple data tables to PostgreSQL.
 
-        :param db: Objeto de conexión a la base de datos que contiene el método upsert_table().
-        :param dim_product: DataFrame de la dimensión de productos.
-        :param dim_customer: DataFrame de la dimensión de clientes.
-        :param dim_date: DataFrame de la dimensión de fechas.
-        :param dim_country: DataFrame de la dimensión de países.
-        :param fact_sales: DataFrame de la tabla de hechos (ventas).
-        :return: Mensaje indicando si la carga fue exitosa.
+        Args:
+            dim_product (pd.DataFrame): Data for the dim_product table.
+            dim_customer (pd.DataFrame): Data for the dim_customer table.
+            dim_date (pd.DataFrame): Data for the dim_date table.
+            dim_country (pd.DataFrame): Data for the dim_country table.
+            fact_sales (pd.DataFrame): Data for the fact_sales table.
+
+        Returns:
+            str: Success or error message.
         """
         try:
             db.upsert_table(dim_product, "dim_product")
             db.upsert_table(dim_customer, "dim_customer")
             db.upsert_table(dim_date, "dim_date")
             db.upsert_table(dim_country, "dim_country")
-
-            # Subir la tabla de hechos después (porque depende de las dimensiones)
             db.upsert_table(fact_sales, "fact_sales")
 
-            return "✅ Carga exitosa: Todas las tablas han sido subidas a PostgreSQL."
-
+            return "✅ Data upload successful: All tables have been loaded into PostgreSQL."
         except Exception as e:
-            return f"❌ Error al cargar los datos a PostgreSQL: {str(e)}"
+            return f"❌ Error uploading data to PostgreSQL: {str(e)}"

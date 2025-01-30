@@ -1,1 +1,1 @@
-from .loader import loader
+from .loader import DataLoader as loader

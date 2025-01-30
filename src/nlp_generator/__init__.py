@@ -1,1 +1,1 @@
-from .generator import generator
+from .generator import SQLGenerator as generator

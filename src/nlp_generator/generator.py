@@ -4,9 +4,12 @@ from creds import creds
 from src.utils import db
 import re
 
-class generator:
-    # Esquema de la base de datos como variable de clase
-    table_schema = {
+class SQLGenerator:
+    """
+    A utility class to generate and execute SQL queries using an AI language model.
+    """
+    
+    _table_schema = {
         "dim_country": {
             "country_id": "bigint",
             "country": "text"
@@ -40,82 +43,76 @@ class generator:
         }
     }
 
-    # Clave de API de OpenAI como variable de clase
-    conn_config = creds.get_openai_config()
-    openai_key = conn_config["key"]
-
-    # Inicialización del modelo de lenguaje como variable de clase
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=openai_key)
+    _conn_config = creds.get_openai_config()
+    _openai_key = _conn_config["key"]
+    _llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, api_key=_openai_key)
 
     @classmethod
-    def _generate_template(cls):
+    def _generate_template(cls) -> str:
         """
-        Genera la plantilla de prompt para el modelo de lenguaje.
-
-        :return: Cadena de texto con la plantilla del prompt.
+        Generates the SQL prompt template for the AI model.
+        
+        Returns:
+            str: SQL query generation prompt template.
         """
         return """
-        Eres un experto en SQL y debes generar consultas para una base de datos PostgreSQL según la solicitud del usuario.
+        You are an expert in SQL and must generate queries for a PostgreSQL database based on the user's request.
 
-        ## Estructura de la base de datos con tipos de datos:
+        ## Database schema with data types:
         {table_schema}
 
-        ## Instrucciones:
-        - Usa los nombres exactos de las tablas y columnas.
-        - Si la consulta requiere fechas, úsalas desde `dim_date` con `JOIN` en `date_id`.
-        - Si la consulta involucra clientes, úsalos desde `dim_customer` con `JOIN` en `customer_id`.
-        - Si la consulta involucra productos, úsalos desde `dim_product` con `JOIN` en `product_id`.
-        - Cuando trabajes con `unit_price` o `total_price`, recuerda que son `double precision` (números flotantes de alta precisión).
-        - Siempre agrupa correctamente y usa `ORDER BY` si es necesario.
-        - La respuesta debe ser exclusivamente la consulta SQL, sin palabras adicionales.
+        ## Instructions:
+        - Use the exact table and column names.
+        - If the query involves dates, use them from `dim_date` by JOINing on `date_id`.
+        - If the query involves customers, use `dim_customer` by JOINing on `customer_id`.
+        - If the query involves products, use `dim_product` by JOINing on `product_id`.
+        - When working with `unit_price` or `total_price`, remember they are `double precision`.
+        - Always group results properly and use `ORDER BY` when necessary.
+        - The response must strictly be a SQL query, without additional text.
 
-        ## Solicitud del usuario:
+        ## User Request:
         "{user_request}"
 
-        ## Consulta SQL:
+        ## SQL Query:
         """
 
     @classmethod
-    def _clean_sql_query(cls, response_content):
+    def _clean_sql_query(cls, response_content: str) -> str:
         """
-        Elimina los delimitadores de bloque de código de la respuesta del modelo.
-
-        :param response_content: Respuesta del modelo de lenguaje.
-        :return: Cadena de texto con la consulta SQL limpia.
+        Cleans the generated SQL query by removing unnecessary code block delimiters.
+        
+        Args:
+            response_content (str): AI model response containing the SQL query.
+        
+        Returns:
+            str: Cleaned SQL query.
         """
-        cleaned_query = re.sub(r"```(?:sql)?\n([\s\S]*?)```", r"\1", response_content).strip()
-        return cleaned_query
+        return re.sub(r"```(?:sql)?\n([\s\S]*?)```", r"\1", response_content).strip()
 
     @classmethod
-    def generate_table(cls, user_request):
+    def generate_table(cls, user_request: str):
         """
-        Convierte una solicitud en lenguaje natural a una consulta SQL y la ejecuta.
+        Converts a natural language request into an SQL query and executes it.
 
-        :param user_request: Cadena de texto con la solicitud del usuario.
-        :return: DataFrame con los resultados de la consulta o una cadena de error.
+        Args:
+            user_request (str): User's request in natural language.
+        
+        Returns:
+            pd.DataFrame | str: Query results as a DataFrame or an error message.
         """
         try:
-            # Formatear el prompt con la solicitud del usuario
             prompt_template = PromptTemplate(
                 input_variables=["table_schema", "user_request"],
                 template=cls._generate_template()
             )
             prompt_text = prompt_template.format(
-                table_schema=cls.table_schema,
+                table_schema=cls._table_schema,
                 user_request=user_request
             )
 
-            # Obtener la respuesta del modelo de lenguaje
-            response = cls.llm.invoke(prompt_text)
-
-            # Limpiar la consulta SQL generada
+            response = cls._llm.invoke(prompt_text)
             cleaned_query = cls._clean_sql_query(response.content)
-
-            # Ejecutar la consulta en la base de datos
-            df = db.execute_query(cleaned_query)
-
-            return df
-
+            
+            return db.execute_query(cleaned_query)
         except Exception as e:
-            return f"Error al procesar la solicitud: {str(e)}"
-
+            return f"❌ Error processing request: {str(e)}"
