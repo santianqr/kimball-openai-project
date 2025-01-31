@@ -1,38 +1,43 @@
 from src import db, processor, model, loader, generator
 
-print("🟢Starting ETL process")
+print("🟢 Starting ETL process")
 
 # Define the file path for the raw data
 file_path = "data/raw/Invoices_Year_2009-2010.csv"
 
-print("🧹 Cleaning the raw data")
+print("🧹 Cleaning the raw data...")
 # Clean and process the raw data
 df = processor.process_data(file_path)
+print("🗄️ Data after cleaning/fix and ready to be upload to PostgreSQL :")
+print(df.head())
 
 print(
     "###########################################################################################"
 )
 # Create the table invoices in PostgreSQL
-print("🆙 Uploading the cleaning raw data, wait a minute")
+print("🆙 Uploading the cleaning raw data, wait a minute...")
 db.upsert_table(df, "invoices")
 
 print(
     "###########################################################################################"
 )
-print("🕒 Quering the full cleaned data to create the Kimball Model")
+print("🕒 Quering the full cleaned data to create the Kimball Model...")
 # Execute a base SQL query and get the data to provide to the model
 df_clean = db.execute_sql_file("src/utils/queries/base_query.sql")
 
 print(
     "###########################################################################################"
 )
-print("🕒 Creating tables usin Kimball model (Data warehouse)")
+print("🕒 Creating tables using Kimball model (Data warehouse)...")
 # Generate the data model from the data (Kimball model)
 dim_product, dim_customer, dim_date, dim_country, fact_sales = model.generate_model(
     df_clean
 )
 
-print("🕒Uploading model to PostgreSQL, wait a minute")
+print(
+    "###########################################################################################"
+)
+print("🕒Uploading model to PostgreSQL, wait a minute...")
 # Upload the generated data model to PostgreSQL
 loader.upload_model(dim_product, dim_customer, dim_date, dim_country, fact_sales)
 

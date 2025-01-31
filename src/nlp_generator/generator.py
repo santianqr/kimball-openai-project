@@ -97,6 +97,7 @@ class SQLGenerator:
             pd.DataFrame | str: Query results as a DataFrame or an error message.
         """
         try:
+            print("🤔 Thinking...")
             prompt_template = PromptTemplate(
                 input_variables=["table_schema", "user_request"],
                 template=cls._generate_template(),

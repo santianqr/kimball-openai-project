@@ -68,6 +68,10 @@ class DataProcessor:
             raise ValueError("❌ DataFrame is empty. Provide a valid DataFrame.")
 
         try:
+            print("🗄️ Data to be proccesed:")
+            print(df.head())
+            # Remove duplicates
+            print("Removing duplicates")
             df.drop_duplicates(inplace=True)
 
             # Remove test entries
