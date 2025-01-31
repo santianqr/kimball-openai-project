@@ -119,7 +119,7 @@ BetssonProject/
   - **[src/data_loader/loader.py](src/data_loader/loader.py)**: Class to upload the dataframes generated from the Kimball model to PostgreSQL.
 
 ### Kimball Model Generation
-- **[src/data_modeling/generate_model.py](src/data_modeling/generate_model.py)**: Contains the class to generate a Kimball model from raw data.
+- **[src/data_modeling/model.py](src/data_modeling/model.py)**: Contains the class to generate a Kimball model from raw data.
   - **Class `KimballModel`**: This class takes a raw data DataFrame and applies transformations to create a Kimball data warehouse model.
 
 ### NLP Generation
