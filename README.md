@@ -115,7 +115,7 @@ BetssonProject/
 
 ### Data Processing
 - **[src/data_processor](src/data_processor)**: Contains the data processing/cleaning logic.
-  - **[src/data_processor/process_data.py](src/data_processor/process_data.py)**: Main data processing functions.
+  - **[src/data_processor/processor.py](src/data_processor/processor.py)**: Main data processing functions.
 
 ### Data Loading
 - **[src/data_loader](src/data_loader)**: Contains the data loading logic.
