@@ -1,6 +1,3 @@
--- This query performs a cohort analysis by identifying the first purchase month of each customer
--- and tracking their purchasing behavior over time to measure retention.
-
 WITH first_purchase AS (
     -- Determine the first month each customer made a purchase
     SELECT 

@@ -142,28 +142,28 @@ class DataModel:
                 "Country": "country",
             }
         )
-        print('🕒Creating tables usin Kimball model (Data warehouse)')
+        print("🕒Creating tables usin Kimball model (Data warehouse)")
 
         dim_product = DataModel.create_dim_product(df)
-        print('✅ Product Dimension Table Created:')
+        print("✅ Product Dimension Table Created:")
         print(dim_product.head(5))
 
         dim_customer = DataModel.create_dim_customer(df)
-        print('✅ Customer Dimension Table Created:')
+        print("✅ Customer Dimension Table Created:")
         print(dim_customer.head(5))
 
         dim_date = DataModel.create_dim_date(df)
-        print('✅ Date Dimension Table Created:')
+        print("✅ Date Dimension Table Created:")
         print(dim_date.head(5))
 
         dim_country = DataModel.create_dim_country(df)
-        print('✅ Country Dimension Table Created:')
+        print("✅ Country Dimension Table Created:")
         print(dim_country.head(5))
 
         fact_sales = DataModel.create_fact_sales(
             df, dim_product, dim_customer, dim_date, dim_country
         )
-        print('✅ Fact Sales Table Created:')
+        print("✅ Fact Sales Table Created:")
         print(fact_sales.head(5))
-        
+
         return dim_product, dim_customer, dim_date, dim_country, fact_sales

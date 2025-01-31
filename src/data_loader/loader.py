@@ -29,7 +29,7 @@ class DataLoader:
             str: Success or error message.
         """
         try:
-            print("🕒Uploading tables to PostgreSQL...")
+            print("🕒Uploading tables to PostgreSQL, wait a minute")
             db.upsert_table(dim_product, "dim_product")
             print("✅ dim_product table uploaded successfully.")
             db.upsert_table(dim_customer, "dim_customer")

@@ -10,20 +10,20 @@ def run_command(command):
 
 
 def main():
-    # Instalar los requisitos
-    print("📦 Instalando los requisitos...")
+    # Install the requirements
+    print("📦 Installing the requirements...")
     run_command("pip install -r requirements.txt")
 
-    # Formatear el código con black
-    print("🖌 Formateando el código con black...")
+    # Format the code with black
+    print("🖌 Formatting the code with black...")
     run_command("black .")
 
-    # Ejecutar pruebas con pytest
-    print("🧪 Ejecutando pruebas con pytest...")
+    # Run tests with pytest
+    print("🧪 Running tests with pytest...")
     run_command("pytest")
 
-    # Ejecutar el script principal
-    print("🚀 Ejecutando el script principal...")
+    # Run the main script
+    print("🚀 Running the main script...")
     run_command("python main.py")
 
 

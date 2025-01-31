@@ -1,6 +1,3 @@
--- This query calculates year-over-year sales growth by country using CTEs.
--- It first aggregates total sales by country and year, then computes the percentage growth compared to the previous year.
-
 WITH sales_by_year AS (
     SELECT 
         d.country,  

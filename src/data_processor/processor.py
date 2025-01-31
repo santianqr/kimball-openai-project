@@ -19,7 +19,7 @@ class DataProcessor:
             str: The detected encoding type.
         """
         try:
-            print('Detecting encoding')
+            print("Detecting encoding")
             with open(file_path, "rb") as rawdata:
                 result = chardet.detect(rawdata.read(100000))
 
@@ -42,7 +42,7 @@ class DataProcessor:
         """
         try:
             encoding_to_use = DataProcessor._detect_encoding(file_path)
-            print(f'Encoding to use: {encoding_to_use}')
+            print(f"Encoding to use: {encoding_to_use}")
             return pd.read_csv(
                 file_path,
                 encoding=encoding_to_use,
@@ -71,7 +71,7 @@ class DataProcessor:
             df.drop_duplicates(inplace=True)
 
             # Remove test entries
-            print('Removing test entries')
+            print("Removing test entries")
             df = df[
                 ~df["Customer ID"]
                 .astype(str)
@@ -82,21 +82,21 @@ class DataProcessor:
             ]
 
             # Fill missing values
-            print('Filling missing values')
+            print("Filling missing values")
             df["Price"].fillna(0, inplace=True)
             df["Country"].fillna("No country", inplace=True)
             df["Description"].fillna("No description", inplace=True)
             df["Customer ID"].fillna(999999999, inplace=True)
 
             # Remove invalid entries
-            print('Removing invalid entries like price < 0')
+            print("Removing invalid entries like price < 0")
             df = df[
                 ~df["StockCode"].astype(str).str.match(r"^[^a-zA-Z0-9]+$", na=False)
             ]
             df = df[df["Price"] >= 0]
 
             # Ensure correct data types
-            print('Ensuring correct data types')
+            print("Ensuring correct data types")
             df["Invoice"] = df["Invoice"].astype(str)
             df["StockCode"] = df["StockCode"].astype(str)
             df["Description"] = df["Description"].astype(str)

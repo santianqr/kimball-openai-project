@@ -1,6 +1,3 @@
--- This query analyzes the top 20 products based on total revenue,
--- categorizing them into quartiles based on the number of invoices they appear in.
-
 WITH product_sales AS (
     -- Calculate total sales and the number of invoices each product appears in
     SELECT 
