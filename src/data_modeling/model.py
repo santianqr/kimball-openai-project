@@ -142,7 +142,6 @@ class DataModel:
                 "Country": "country",
             }
         )
-        print("🕒Creating tables usin Kimball model (Data warehouse)")
 
         dim_product = DataModel.create_dim_product(df)
         print("✅ Product Dimension Table Created:")
