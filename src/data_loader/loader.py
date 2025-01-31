@@ -29,11 +29,17 @@ class DataLoader:
             str: Success or error message.
         """
         try:
+            print("🕒Uploading tables to PostgreSQL...")
             db.upsert_table(dim_product, "dim_product")
+            print("✅ dim_product table uploaded successfully.")
             db.upsert_table(dim_customer, "dim_customer")
+            print("✅ dim_customer table uploaded successfully.")
             db.upsert_table(dim_date, "dim_date")
+            print("✅ dim_date table uploaded successfully.")
             db.upsert_table(dim_country, "dim_country")
+            print("✅ dim_country table uploaded successfully.")
             db.upsert_table(fact_sales, "fact_sales")
+            print("✅ fact_sales table uploaded successfully.")
 
             return (
                 "✅ Data upload successful: All tables have been loaded into PostgreSQL."

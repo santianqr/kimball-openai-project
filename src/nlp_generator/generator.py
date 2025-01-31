@@ -107,6 +107,10 @@ class SQLGenerator:
 
             response = cls._llm.invoke(prompt_text)
             cleaned_query = cls._clean_sql_query(response.content)
+            print(f"""
+            Generated SQL Query:
+            {cleaned_query}      
+            """)
 
             return db.execute_query(cleaned_query)
         except Exception as e:
