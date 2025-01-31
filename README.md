@@ -141,22 +141,9 @@ To run the project, follow these steps:
 
 1. **Ensure Python is Installed**: Make sure you have Python 3.8 or higher installed on your system.
 
-2. **Install Dependencies**: Install the required dependencies using the following command:
+2. **Run the project**: You can run the project using one of the following options:
 
-  ```sh
-  pip install -r requirements.txt
-  ```
-
-  Alternatively, you can install them manually:
-
-  ```sh
-  pip install pandas==2.1.1 numpy==1.26.0 psycopg2-binary==2.9.9 pyyaml==6.0.1 chardet==5.2.0 sqlalchemy==2.0.21 langchain-openai pytest black==23.3.0
-  ```
-
-3. **Run the Project**: You can run the project using one of the following options:
-
-  - Execute the `run.py` script:
-
+  - Run the `run.py` script to automatically required libraries, format, tests and the main code:
     ```sh
     python run.py
     ```
@@ -168,3 +155,5 @@ To run the project, follow these steps:
     ```
 
   - Open and execute the main Jupyter Notebook `main_notebook.ipynb`.
+
+If you run the `main.py` script or open `main_notebook.ipynb`, make sure all required libraries from `requirements.txt` are installed.
