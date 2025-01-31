@@ -65,9 +65,9 @@ BetssonProject/
 │   ├── __pycache__/
 │   ├── data_loader/
 │   │   ├── __init__.py
-│   │   └── load_data.py
+│   │   └── loader.py
 │   ├── data_modeling/
-│   │   └── generate_model.py
+│   │   └── model.py
 │   ├── data_processor/
 │   │   ├── __init__.py
 │   │   └── process_data.py
@@ -77,12 +77,15 @@ BetssonProject/
 │       ├── __init__.py
 │       └── queries/
 │           ├── base_query.sql
-│           └── classification_products.sql
+│           ├── classification_products.sql
+│           ├── cohort_analysis.sql
+│           ├── growth_yoy_by_country.sql
+│           └── testing_query.sql
 └── tests/
     ├── __init__.py
     ├── __pycache__/
     ├── data_modeling/
-    │   └── test_modeling.py
+    │   └── test_model.py
     ├── data_processor/
     │   └── test_processor.py
     └── database/
@@ -107,7 +110,7 @@ BetssonProject/
 
 ### Tests
 - **[tests/data_processor/test_processor.py](tests/data_processor/test_processor.py)**: Contains tests for the data processing functions.
-- **[tests/data_processor/test_processor.py](tests/data_modeling/test_processor.py)**: Contains tests for the data warehouse kimball model.
+- **[tests/data_modeling/test_model.py](tests/data_modeling/test_model.py)**: Contains tests for the data warehouse kimball model.
 - **[tests/database/test_db.py](tests/database/test_db.py)**: Contains tests for the database functions.
 
 ### Data Processing
