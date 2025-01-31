@@ -94,6 +94,7 @@ BetssonProject/
 
 ### Notebooks
 - **[notebooks/exploration.ipynb](notebooks/exploration.ipynb)**: Contains exploratory data analysis and data cleaning steps.
+- **[main_notebook.ipynb](main_notebook.ipynb)**: Main notebook to run the project.
 
 ### Scripts
 - **[main.py](main.py)**: Main script to run the project.
