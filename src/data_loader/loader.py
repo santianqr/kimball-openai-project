@@ -29,7 +29,6 @@ class DataLoader:
             str: Success or error message.
         """
         try:
-            
             db.upsert_table(dim_product, "dim_product")
             print("✅ dim_product table uploaded successfully.")
             db.upsert_table(dim_customer, "dim_customer")
