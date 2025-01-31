@@ -1,9 +1,7 @@
-# Betsson Project
-
-## Project Documentation
+# Project Documentation
 
 ### Overview
-This project is a test for a data engineer position at Betsson. The goal is to process and clean the provided dataset to ensure data quality and consistency.
+This project is a test for a Data Engineer position at Betsson. The objective is to build a Kimball Model from raw invoice data spanning 2009 to 2010. The project involves data cleaning, transformation, and aggregation, adhering to best practices in data engineering.
 
 ### Assumptions and Considerations
 - **Negative Quantities**: Negative values in the `Quantity` column are assumed to be returns.
@@ -31,9 +29,11 @@ This project is a test for a data engineer position at Betsson. The goal is to p
 - Set null prices to `0`.
 - Excluded entries with invalid stock codes.
 
-### Directory Structure
+### Environment Variables
 
-# Project Structure
+This project uses OpenAI and Amazon RDS PostgreSQL. The environment variables required for these services are stored in the `config.yaml` file. Note that these variables have a validity period of 1 month.
+
+### Project Structure
 
 ```plaintext
 BetssonProject/
@@ -97,7 +97,7 @@ BetssonProject/
 - **[run.py](run.py)**: Script to execute the project.
 
 ### Configuration
-- **[config.yaml](config.yaml)**: Configuration file for the project.
+- **[config.yaml](config.yaml)**: Configuration file for the project and credentials.
 
 ### Requirements
 - **[requirements.txt](requirements.txt)**: List of dependencies required for the project.
@@ -107,32 +107,60 @@ BetssonProject/
 
 ### Tests
 - **[tests/data_processor/test_processor.py](tests/data_processor/test_processor.py)**: Contains tests for the data processing functions.
+- **[tests/data_processor/test_processor.py](tests/data_modeling/test_processor.py)**: Contains tests for the data warehouse kimball model.
 - **[tests/database/test_db.py](tests/database/test_db.py)**: Contains tests for the database functions.
 
 ### Data Processing
-- **[src/data_processor](src/data_processor)**: Contains the data processing logic.
+- **[src/data_processor](src/data_processor)**: Contains the data processing/cleaning logic.
   - **[src/data_processor/process_data.py](src/data_processor/process_data.py)**: Main data processing functions.
 
 ### Data Loading
 - **[src/data_loader](src/data_loader)**: Contains the data loading logic.
-  - **[src/data_loader/load_data.py](src/data_loader/load_data.py)**: Functions to load data into the database.
+  - **[src/data_loader/loader.py](src/data_loader/loader.py)**: Class to upload the dataframes generated from the Kimball model to PostgreSQL.
 
-### Data Modeling
-- **[src/data_modeling](src/data_modeling)**: Contains the data modeling logic.
-  - **[src/data_modeling/generate_model.py](src/data_modeling/generate_model.py)**: Functions to generate data models.
+### Kimball Model Generation
+- **[src/data_modeling/generate_model.py](src/data_modeling/generate_model.py)**: Contains the class to generate a Kimball model from raw data.
+  - **Class `KimballModel`**: This class takes a raw data DataFrame and applies transformations to create a Kimball data warehouse model.
 
 ### NLP Generation
 - **[src/nlp_generator](src/nlp_generator)**: Contains the NLP generation logic.
-  - **[src/nlp_generator/generate_table.py](src/nlp_generator/generate_table.py)**: Functions to generate tables using NLP.
+  - **[src/nlp_generator/generate_table.py](src/nlp_generator/generate_table.py)**: Contains the `NLPGenerator` class.
+    - **Class `NLPGenerator`**: This class takes natural language input and internally generates queries based on the loaded Kimball model, returning a DataFrame.
 
 ### Utilities
-- **[src/utils](src/utils)**: Contains utility functions and SQL queries.
-  - **[src/utils/queries](src/utils/queries)**: Contains SQL query files.
-    - **[src/utils/queries/base_query.sql](src/utils/queries/base_query.sql)**: Base SQL query.
-    - **[src/utils/queries/classification_products.sql](src/utils/queries/classification_products.sql)**: SQL query for product classification.
+- **[src/utils](src/utils)**: Contains utility functions to database management and SQL queries to uso.
+  - **[src/utils/queries](src/utils/queries)**: Contains SQL query files with it owns comments.
 
 ### Running the Project
-To run the project, execute the `run.py` script:
 
-```sh
-python run.py
+To run the project, follow these steps:
+
+1. **Ensure Python is Installed**: Make sure you have Python 3.8 or higher installed on your system.
+
+2. **Install Dependencies**: Install the required dependencies using the following command:
+
+  ```sh
+  pip install -r requirements.txt
+  ```
+
+  Alternatively, you can install them manually:
+
+  ```sh
+  pip install pandas==2.1.1 numpy==1.26.0 psycopg2-binary==2.9.9 pyyaml==6.0.1 chardet==5.2.0 sqlalchemy==2.0.21 langchain-openai pytest black==23.3.0
+  ```
+
+3. **Run the Project**: You can run the project using one of the following options:
+
+  - Execute the `run.py` script:
+
+    ```sh
+    python run.py
+    ```
+
+  - Run the `main.py` script:
+
+    ```sh
+    python main.py
+    ```
+
+  - Open and execute the main Jupyter Notebook `main_notebook.ipynb`.
