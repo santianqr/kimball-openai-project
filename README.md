@@ -127,7 +127,7 @@ BetssonProject/
 
 ### NLP Generation
 - **[src/nlp_generator](src/nlp_generator)**: Contains the NLP generation logic.
-  - **[src/nlp_generator/generate_table.py](src/nlp_generator/generate_table.py)**: Contains the `NLPGenerator` class.
+  - **[src/nlp_generator/generator.py](src/nlp_generator/generator.py)**: Contains the `NLPGenerator` class.
     - **Class `NLPGenerator`**: This class takes natural language input and internally generates queries based on the loaded Kimball model, returning a DataFrame.
 
 ### Utilities
